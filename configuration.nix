@@ -114,14 +114,12 @@
     
     # GNOME Keyring for secure credential storage
     gnome.gnome-keyring.enable = true;
-    
-    # GNOME desktop environment
-    xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-    };
   };
+
+  # GNOME desktop environment
+  services.xserver.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # GNOME configuration
   environment.gnome.excludePackages = with pkgs; [
@@ -190,7 +188,7 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       liberation_ttf
       dejavu_fonts

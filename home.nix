@@ -233,38 +233,40 @@
     # VS Code configuration
     vscode = {
       enable = true;
-      userSettings = {
-        # Editor settings
-        "editor.fontFamily" = "JetBrains Mono";
-        "editor.fontSize" = 12;
-        "editor.formatOnSave" = true;
+      profiles.default = {
+        userSettings = {
+          # Editor settings
+          "editor.fontFamily" = "JetBrains Mono";
+          "editor.fontSize" = 12;
+          "editor.formatOnSave" = true;
+          
+          # Nix settings
+          "nix.enableLanguageServer" = true;
+          "nix.linterType" = "statix";
+        };
         
-        # Nix settings
-        "nix.enableLanguageServer" = true;
-        "nix.linterType" = "statix";
+        extensions = with pkgs.vscode-extensions; [
+          # Nix development
+          bbenoist.nix
+          jnoortheen.nix-ide
+          
+          # Rust development
+          rust-lang.rust-analyzer
+          
+          # Python
+          ms-python.python
+          ms-python.vscode-pylance
+          
+          # Web development
+          bradlc.vscode-tailwindcss
+          dbaeumer.vscode-eslint
+          
+          # Utilities
+          eamodio.gitlens
+          gruntfuggly.todo-tree
+          ms-vscode-remote.remote-ssh
+        ];
       };
-      
-      extensions = with pkgs.vscode-extensions; [
-        # Nix development
-        bbenoist.nix
-        jnoortheen.nix-ide
-        
-        # Rust development
-        rust-lang.rust-analyzer
-        
-        # Python
-        ms-python.python
-        ms-python.vscode-pylance
-        
-        # Web development
-        bradlc.vscode-tailwindcss
-        dbaeumer.vscode-eslint
-        
-        # Utilities
-        eamodio.gitlens
-        gruntfuggly.todo-tree
-        ms-vscode-remote.remote-ssh
-      ];
     };
     
     # Direnv for environment variables per directory
@@ -290,7 +292,7 @@
     # GPG agent for secure operations
     gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentry.package = pkgs.pinentry-gtk2;
       defaultCacheTtl = 34560000;
     };
     
