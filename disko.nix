@@ -1,5 +1,3 @@
-{ config, lib, ... }:
-
 {
   disko.devices = {
     disk = {
@@ -111,43 +109,6 @@
             };
           };
         };
-      };
-    };
-  };
-
-  # Ensure critical partitions are available early in boot
-  fileSystems."/var/log".neededForBoot = true;
-  fileSystems."/nix".neededForBoot = true;
-
-  # Enable periodic TRIM for SSD health
-  services.fstrim.enable = true;
-
-  # Memory and swap optimization for laptop
-  boot.kernel.sysctl = {
-    # Reduce swap usage - keep RAM available for cache (0=never, 100=aggressive)
-    "vm.swappiness" = 10;
-    
-    # Allow overcommit to prevent OOM kills
-    "vm.overcommit_memory" = 1;
-  };
-
-  # Optional: Enable zswap for compressed swap (requires kernel rebuild)
-  boot.kernelParams = [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.max_pool_percent=25" ];
-
-  # Optional: Snapshots cleanup (uncomment if using snapper)
-  services.snapper = {
-    configs = {
-      root = {
-        subvolume = "/";
-        extraConfig = ''
-          TIMELINE_CREATE="yes"
-          TIMELINE_CLEANUP="yes"
-          TIMELINE_LIMIT_HOURLY="24"
-          TIMELINE_LIMIT_DAILY="7"
-          TIMELINE_LIMIT_WEEKLY="0"
-          TIMELINE_LIMIT_MONTHLY="0"
-          TIMELINE_LIMIT_YEARLY="0"
-        '';
       };
     };
   };
