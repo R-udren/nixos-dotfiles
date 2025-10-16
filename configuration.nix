@@ -131,7 +131,7 @@
   xdg.portal.enable = true;
 
   # Audio configuration
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
   # Bluetooth hardware
@@ -195,7 +195,7 @@
       font-awesome
       
       # JetBrains Mono Nerd Font
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      nerd-fonts.jetbrains-mono
     ];
     
     fontconfig = {
