@@ -288,10 +288,10 @@
 
   # Services configuration
   services = {
-    # Display server management
+    # GPG agent for secure operations
     gpg-agent = {
       enable = true;
-      pinentryFlavor = "gtk2";
+      pinentryPackage = pkgs.pinentry-gtk2;
       defaultCacheTtl = 34560000;
     };
     
@@ -312,7 +312,7 @@
     enable = true;
     theme = {
       name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
     };
     
     iconTheme = {
@@ -365,11 +365,6 @@
       publicShare = "$HOME/.local/share/Public";
     };
   };
-
-  # Dotfiles configuration (optional)
-  home.file.".config/starship.toml".text = lib.mkIf config.programs.starship.enable ''
-    # Starship config is managed via programs.starship.settings
-  '';
 
   # Enable fontconfig
   fonts.fontconfig.enable = true;

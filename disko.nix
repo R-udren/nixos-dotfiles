@@ -35,12 +35,6 @@
                 settings = {
                   # Allow TRIM/discard for SSD performance
                   allowDiscards = true;
-
-                  # Use LUKS2 with argon2id for better security
-                  pbkdfAlgo = "argon2id";
-
-                  # Increase PBKDF iterations for security
-                  iterTime = 4000; # milliseconds, increases resistance to brute-force
                 };
 
                 # Performance optimizations for NVMe SSD

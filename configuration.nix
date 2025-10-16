@@ -124,7 +124,6 @@
   xdg.portal.enable = true;
 
   # Audio configuration
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
@@ -242,18 +241,17 @@
 
   # Optional: Snapshots cleanup (uncomment if using snapper)
   services.snapper = {
+    enable = false;  # Set to true if you want to use snapper
     configs = {
       root = {
-        subvolume = "/";
-        extraConfig = ''
-          TIMELINE_CREATE="yes"
-          TIMELINE_CLEANUP="yes"
-          TIMELINE_LIMIT_HOURLY="24"
-          TIMELINE_LIMIT_DAILY="7"
-          TIMELINE_LIMIT_WEEKLY="0"
-          TIMELINE_LIMIT_MONTHLY="0"
-          TIMELINE_LIMIT_YEARLY="0"
-        '';
+        SUBVOLUME = "/";
+        TIMELINE_CREATE = "yes";
+        TIMELINE_CLEANUP = "yes";
+        TIMELINE_LIMIT_HOURLY = "24";
+        TIMELINE_LIMIT_DAILY = "7";
+        TIMELINE_LIMIT_WEEKLY = "0";
+        TIMELINE_LIMIT_MONTHLY = "0";
+        TIMELINE_LIMIT_YEARLY = "0";
       };
     };
   };
