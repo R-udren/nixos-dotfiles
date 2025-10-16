@@ -28,11 +28,8 @@
       efi.canTouchEfiVariables = true;
     };
     
-    # Kernel parameters for laptop optimization
-    kernelParams = [
-      "nowatchdog"  # Disable watchdog for power saving
-    ];
-    
+    kernelParams = [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.max_pool_percent=25" "nowatchdog" ];
+
     # Latest stable kernel
     kernelPackages = pkgs.linuxPackages_latest;
     
@@ -242,9 +239,6 @@
     # Allow overcommit to prevent OOM kills
     "vm.overcommit_memory" = 1;
   };
-
-  # Optional: Enable zswap for compressed swap (requires kernel rebuild)
-  boot.kernelParams = [ "zswap.enabled=1" "zswap.compressor=zstd" "zswap.max_pool_percent=25" ];
 
   # Optional: Snapshots cleanup (uncomment if using snapper)
   services.snapper = {
