@@ -20,16 +20,16 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        # Подключаем disko для декларативного управления дисками
+        # Disko for declarative disk management
         disko.nixosModules.disko
         
-        # Основная конфигурация системы
+        # Main system configuration
         ./configuration.nix
         
-        # Конфигурация дисков
-        ./disko-config.nix
+        # Disk configuration
+        ./disko.nix
         
-        # Home Manager как модуль NixOS
+        # Home Manager as a NixOS module
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
