@@ -158,6 +158,7 @@
     # System tools
     btop
     ncdu
+    snapper
     
     # Multimedia
     mpv
