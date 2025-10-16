@@ -36,6 +36,15 @@
     # Kernel modules for WiFi and Bluetooth
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
     kernelModules = [ "kvm-intel" ];
+
+    # Memory and swap optimization for laptop
+    kernel.sysctl = {
+        # Reduce swap usage - keep RAM available for cache (0=never, 100=aggressive)
+        "vm.swappiness" = 10;
+        
+        # Allow overcommit to prevent OOM kills
+        "vm.overcommit_memory" = 1;
+    };
     
     # LUKS configuration
     initrd.luks.devices."cryptroot" = {
@@ -158,7 +167,6 @@
     # System tools
     btop
     ncdu
-    snapper
     
     # Multimedia
     mpv
@@ -230,30 +238,5 @@
 
   # Enable periodic TRIM for SSD health
   services.fstrim.enable = true;
-
-  # Memory and swap optimization for laptop
-  boot.kernel.sysctl = {
-    # Reduce swap usage - keep RAM available for cache (0=never, 100=aggressive)
-    "vm.swappiness" = 10;
-    
-    # Allow overcommit to prevent OOM kills
-    "vm.overcommit_memory" = 1;
-  };
-
-  # Optional: Snapshots cleanup (uncomment if using snapper)
-  services.snapper = {
-    enable = false;  # Set to true if you want to use snapper
-    configs = {
-      root = {
-        SUBVOLUME = "/";
-        TIMELINE_CREATE = "yes";
-        TIMELINE_CLEANUP = "yes";
-        TIMELINE_LIMIT_HOURLY = "24";
-        TIMELINE_LIMIT_DAILY = "7";
-        TIMELINE_LIMIT_WEEKLY = "0";
-        TIMELINE_LIMIT_MONTHLY = "0";
-        TIMELINE_LIMIT_YEARLY = "0";
-      };
-    };
-  };
 }
+
